@@ -1,0 +1,40 @@
+GOAL:
+We want to be able to perform "critical" phase shifting - force the oscillator close to the critical point, then reset it from there simply.
+
+Results:
+
+amplitude_response_tests_______
+- The pPRC and pARC are somewhat complementary. The region for minimization of the amplitude is similar to the region for minimization of the synchrony (~10h-14h, if CBTmin is 12.9h).
+- We should choose one or the other - not both - to make the critical reset happen.
+- I think it makes sense that the pPRC and pARC show reduced amp/desync at the same spot - this is consistent with the model being of the full oscillator rather than just a single cell.
+- Next step: get a version running of the full model that applies a single pulse from 10h to 14h and see what it does for pushing to the crit point.
+
+single_pulse_test________
+- The goal of this is to see if a single pulse completely relaxes or what.
+- So, there are now two plots for 5h of stim each, one at 3h (to show amp increase) one at 10h (to show decrease). It does not relax completely each time, so we should be able to control it with 5h pulses.
+- Next, we need to formulate this as the control problem to drive it to 0.
+
+three_pulse_test________
+- The goal of this is to reproduce the three-pulse experiments and see how the critical reset may be missed.
+- The experiment used 5h pulses centered at 12.9h (CBTmin) per Czeisler et al. Science 1998
+- We find that changing the period slightly results in large differences in final location -- the final amplitude response is very sensitive to period
+- so, we now are testing if just setting a start phase for the 5h pulse is feasible
+
+closed_loop_three_pulse_test________
+- Same as last one, but instead we're going to first locate the phase of the 5h pulse onset, then apply that at all periods.
+- the prime place appears to be 10.4h for 24.6h tau - this is a phase of 2.66 radians
+- it looks like yes, this results in amplitude suppression for all taus and likely allows us to achieve a critical reset!
+
+closed-loop-three-pulse-shorter__________
+- now let's see if we can shorten the pulses somewhat, leaving them still timed at 2.66rad, since most of the drive occurs at the start.
+
+
+
+
+
+
+
+
+General notes:
+- We can develop first optimal control to the critical point, then develop MPC using the ARC(phase) as the model so we know where to deliver light.
+- Even before that, let's use super simple feedback control to time the light pulses
