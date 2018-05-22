@@ -12,6 +12,7 @@ from __future__ import division
 import numpy as np
 import casadi as cs
 import matplotlib.pyplot as plt
+from matplotlib import Grid
 
 from LocalImports import LimitCycle as lc
 from LocalImports import PlotOptions as plo
@@ -37,10 +38,7 @@ dts_pre = kron.ts
 y0_pulse = dsol_pre[-1]
 pulse_phase = skron.phase_of_point(y0_pulse[:-1]) # should give ~2.66
 
-# pulse function formula
-def I_pulse(t):
-    """ returns just max lux """
-    return 9500
+
 
 # targeted stimulus formula
 def threecycle_targeted_stimulus(tau, phase_target):
